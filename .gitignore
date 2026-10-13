@@ -1,0 +1,5 @@
+changelog.txt
+.env
+.env.*
+__pycache__/
+*.py[cod]
