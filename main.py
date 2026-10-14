@@ -3,14 +3,16 @@
 import placeholder_algorithm_1
 import placeholder_algorithm_2
 import placeholder_algorithm_3
-import placeholder_algorithm_4
+import lace_algos
+import os
+import sys
 
 
 MENU_OPTIONS = {
     "1": "Placeholder Algorithm 1",
     "2": "Placeholder Algorithm 2",
     "3": "Placeholder Algorithm 3",
-    "4": "Placeholder Algorithm 4",
+    "4": "Lace Algorithms",
     "5": "Exit",
 }
 
@@ -38,10 +40,12 @@ def run_menu() -> None:
         if choice == "5":
             print("\nExiting Encryption Algorithm Picker. Goodbye!")
             break
+        
+        if choice == "4":
+            exit_code = os.system("python lace_algos.py")
+            if exit_code != 0:
+                sys.exit()
 
-        print(f"\nYou selected: {MENU_OPTIONS[choice]}")
-        print("This algorithm is currently a placeholder.")
-        input("\nPress Enter to return to the menu...")
 
 
 if __name__ == "__main__":
