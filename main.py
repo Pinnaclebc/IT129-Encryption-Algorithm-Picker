@@ -2,16 +2,16 @@
 
 import placeholder_algorithm_1
 import placeholder_algorithm_2
-import placeholder_algorithm_3
 import lace_algos
 import os
 import sys
+import CeasarCipher_Algorithm
 
 
 MENU_OPTIONS = {
     "1": "Placeholder Algorithm 1",
     "2": "Placeholder Algorithm 2",
-    "3": "Placeholder Algorithm 3",
+    "3": "Ceasar Cipher Algorithm",
     "4": "Lace Algorithms",
     "5": "Exit",
 }
@@ -46,6 +46,15 @@ def run_menu() -> None:
             if exit_code != 0:
                 sys.exit()
 
+        print(f"\nYou selected: {MENU_OPTIONS[choice]}")
+
+        if choice == "1":
+            placeholder_algorithm_1.placeholder_algorithm_1()
+        elif choice == "2":
+            placeholder_algorithm_2.placeholder_algorithm_2()
+        elif choice == "3": 
+            CeasarCipher_Algorithm.CeasarEncrypt()
+        input("\nPress Enter to return to the menu...")
 
 
 if __name__ == "__main__":
