@@ -1,13 +1,13 @@
 """Console menu for selecting placeholder encryption algorithms."""
 
-import placeholder_algorithm_1
+import MonoalphabeticCipher_Algorithm
 import placeholder_algorithm_2
 import CeasarCipher_Algorithm
 import placeholder_algorithm_4
 
 
 MENU_OPTIONS = {
-    "1": "Placeholder Algorithm 1",
+    "1": "Monoalphabetic Cipher Algorithm",
     "2": "Placeholder Algorithm 2",
     "3": "Ceasar Cipher Algorithm",
     "4": "Placeholder Algorithm 4",
@@ -42,7 +42,7 @@ def run_menu() -> None:
         print(f"\nYou selected: {MENU_OPTIONS[choice]}")
 
         if choice == "1":
-            placeholder_algorithm_1.placeholder_algorithm_1()
+            MonoalphabeticCipher_Algorithm.MonoalphabeticEncrypt()
         elif choice == "2":
             placeholder_algorithm_2.placeholder_algorithm_2()
         elif choice == "3": 
