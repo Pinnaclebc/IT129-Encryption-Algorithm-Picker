@@ -2,14 +2,14 @@
 
 import placeholder_algorithm_1
 import placeholder_algorithm_2
-import placeholder_algorithm_3
+import CeasarCipher_Algorithm
 import placeholder_algorithm_4
 
 
 MENU_OPTIONS = {
     "1": "Placeholder Algorithm 1",
     "2": "Placeholder Algorithm 2",
-    "3": "Placeholder Algorithm 3",
+    "3": "Ceasar Cipher Algorithm",
     "4": "Placeholder Algorithm 4",
     "5": "Exit",
 }
@@ -40,7 +40,16 @@ def run_menu() -> None:
             break
 
         print(f"\nYou selected: {MENU_OPTIONS[choice]}")
-        print("This algorithm is currently a placeholder.")
+
+        if choice == "1":
+            placeholder_algorithm_1.placeholder_algorithm_1()
+        elif choice == "2":
+            placeholder_algorithm_2.placeholder_algorithm_2()
+        elif choice == "3": 
+            CeasarCipher_Algorithm.CeasarEncrypt()
+        elif choice == "4":
+            placeholder_algorithm_4.placeholder_algorithm_4()   
+            
         input("\nPress Enter to return to the menu...")
 
 
