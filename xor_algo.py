@@ -41,7 +41,7 @@ def show_steps(text, key, mode):
 
 def main():
 
-    print("=== Bitwise XOR Cipher Tool ===")
+    print("\n=== Bitwise XOR Cipher Tool ===")
 
     plaintext = input("Enter the plaintext to encrypt: ")
     key = input("Enter the secret key: ")

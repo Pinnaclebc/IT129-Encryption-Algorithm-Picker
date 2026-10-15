@@ -1,6 +1,7 @@
 import os
 import sys
 import webbrowser
+#Developed by Bruce M. Canga
 
 def show_art():
     

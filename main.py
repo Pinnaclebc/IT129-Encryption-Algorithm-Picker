@@ -1,7 +1,7 @@
 """Console menu for selecting placeholder encryption algorithms."""
 
 import MonoalphabeticCipher_Algorithm
-import placeholder_algorithm_2
+import xor_algo
 import lace_algos
 import os
 import sys
@@ -10,7 +10,7 @@ import CeasarCipher_Algorithm
 
 MENU_OPTIONS = {
     "1": "Monoalphabetic Cipher Algorithm",
-    "2": "Placeholder Algorithm 2",
+    "2": "Xor Algorithm",
     "3": "Ceasar Cipher Algorithm",
     "4": "Lace Algorithms",
     "5": "Exit",
@@ -45,13 +45,11 @@ def run_menu() -> None:
             exit_code = os.system("python lace_algos.py")
             if exit_code != 0:
                 sys.exit()
-
-        print(f"\nYou selected: {MENU_OPTIONS[choice]}")
-
+                
         if choice == "1":
             MonoalphabeticCipher_Algorithm.MonoalphabeticEncrypt()
         elif choice == "2":
-            placeholder_algorithm_2.placeholder_algorithm_2()
+            xor_algo.main()
         elif choice == "3": 
             CeasarCipher_Algorithm.CeasarEncrypt()
         input("\nPress Enter to return to the menu...")
