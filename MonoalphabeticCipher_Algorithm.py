@@ -1,4 +1,4 @@
-#Monoalphabetic substitution cipher.
+# Developed by: Shawn Will O. Velasco
 
 import string
 

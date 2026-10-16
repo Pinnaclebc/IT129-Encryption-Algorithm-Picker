@@ -1,7 +1,8 @@
-import os
+import os 
 import sys
 import webbrowser
-#Developed by Bruce M. Canga
+
+# Developed by: Bruce M. Canga
 
 def show_art():
     
@@ -17,7 +18,6 @@ def show_art():
         webbrowser.open(link)
     else:
         print("The picture file is missing from the folder.")
-
 
 def main_menu():
     show_art()

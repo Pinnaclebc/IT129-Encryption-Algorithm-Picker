@@ -1,31 +1,28 @@
 """Console menu for selecting placeholder encryption algorithms."""
 
 import MonoalphabeticCipher_Algorithm
-import xor_algo
-import lace_algos
+import BitwiseXORCipher_Algorithm
+import LaceCipher_Algorithms
 import os
 import sys
 import CeasarCipher_Algorithm
 
-
 MENU_OPTIONS = {
     "1": "Monoalphabetic Cipher Algorithm",
-    "2": "Xor Algorithm",
+    "2": "Bitwise XOR Cipher Algorithm",
     "3": "Ceasar Cipher Algorithm",
-    "4": "Lace Algorithms",
+    "4": "Lace Cipher Algorithms",
     "5": "Exit",
 }
-
 
 def display_menu() -> None:
     """Display the available encryption algorithm choices."""
     print("\n" + "=" * 46)
-    print("           ENCRYPTION ALGORITHM PICKER")
+    print("         ENCRYPTION ALGORITHM PICKER")
     print("=" * 46)
     for number, option_name in MENU_OPTIONS.items():
         print(f"  [{number}] {option_name}")
     print("=" * 46)
-
 
 def run_menu() -> None:
     """Keep displaying the menu until the user chooses to exit."""
@@ -37,23 +34,25 @@ def run_menu() -> None:
             print("\nInvalid input. Please enter a number from 1 to 5.")
             continue
 
-        if choice == "5":
-            print("\nExiting Encryption Algorithm Picker. Goodbye!")
-            break
-        
-        if choice == "4":
-            exit_code = os.system("python lace_algos.py")
-            if exit_code != 0:
-                sys.exit()
-                
         if choice == "1":
             MonoalphabeticCipher_Algorithm.MonoalphabeticEncrypt()
-        elif choice == "2":
-            xor_algo.main()
-        elif choice == "3": 
-            CeasarCipher_Algorithm.CeasarEncrypt()
-        input("\nPress Enter to return to the menu...")
 
+        elif choice == "2":
+            BitwiseXORCipher_Algorithm.main()
+
+        elif choice == "3":
+            CeasarCipher_Algorithm.CeasarEncrypt()
+
+        elif choice == "4":
+            exit_code = os.system("python LaceCipher_Algorithms.py")
+            if exit_code != 0:
+                sys.exit()
+
+        elif choice == "5":
+            print("\nExiting Encryption Algorithm Picker. Goodbye!")
+            break
+
+        input("\nPress Enter to return to the menu...")
 
 if __name__ == "__main__":
     run_menu()

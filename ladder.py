@@ -1,7 +1,9 @@
 import os
 import sys
 import webbrowser
+
 # Developed by Bruce M. Canga
+
 def pause_step():
     choice = input("\nProceed to next step y/n: ")
     if choice.lower() == 'n':

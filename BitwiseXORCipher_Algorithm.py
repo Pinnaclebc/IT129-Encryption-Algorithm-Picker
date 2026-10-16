@@ -1,9 +1,9 @@
+# Developed by: John Benedict M. Apiag
+
 def xor_char(char, key_char):
     """XOR a single character with a single key character."""
     return chr(ord(char) ^ ord(key_char))
 
-
-# Self made
 def xor_cipher(text, key):
 
     # Storage for the values
@@ -18,7 +18,6 @@ def xor_cipher(text, key):
 
     # Returns the values stored in the array
     return "".join(result)
-
 
 def show_steps(text, key, mode):
     """Prints the letter-by-letter breakdown and returns the result."""
@@ -37,7 +36,6 @@ def show_steps(text, key, mode):
 
     print("-" * 78)
     return xor_cipher(text, key)
-
 
 def main():
 
@@ -72,7 +70,6 @@ def main():
             break
         else:
             print("Invalid choice. Please type D to decrypt or E to exit.")
-
 
 if __name__ == "__main__":
     main()
