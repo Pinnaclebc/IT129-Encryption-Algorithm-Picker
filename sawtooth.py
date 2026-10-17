@@ -4,11 +4,27 @@ import webbrowser
 # Developed by Bruce M. Canga
 
 def pause_step():
-    choice = input("\nProceed to next step y/n: ")
-    if choice.lower() == 'n':
-        print("Going back to menu...")
-        return False
-    return True
+    # Keeps asking until the user types exactly y or n
+    while True:
+        choice = input("\nProceed to next step y/n: ").strip().lower()
+        if choice == 'y':
+            return True
+        elif choice == 'n':
+            print("Going back to menu...")
+            return False
+        else:
+            print("Invalid input. Please type y to continue or n to go back to the menu.")
+
+def ask_yes_no(prompt_text):
+    # Same idea as pause_step, but returns True/False without the menu message
+    while True:
+        choice = input(prompt_text).strip().lower()
+        if choice == 'y':
+            return True
+        elif choice == 'n':
+            return False
+        else:
+            print("Invalid input. Please type y for yes or n for no.")
 
 def show_art():
     file_name = "sawtooth.jpg"
@@ -44,6 +60,7 @@ def get_valid_input(prompt_text):
 
 def encode_msg():
     plain_text = get_valid_input("Enter plain text: ")
+    print("Key space: letters A-Z only, any length (spaces are ignored).")
     keyword = get_valid_input("Enter keyword: ")
     
     print("\nStep 1: Pad the word if it has an odd length")
@@ -128,8 +145,7 @@ def encode_msg():
         return
         
     print("\nDo you want to decode this exact message right now to see the process? y/n")
-    auto_choice = input("Choice: ").lower()
-    if auto_choice == 'y':
+    if ask_yes_no("Choice: "):
         decode_msg(final_cipher, keyword)
 
 def decode_msg(auto_cipher="", auto_key=""):
@@ -140,10 +156,18 @@ def decode_msg(auto_cipher="", auto_key=""):
         print("\nAuto loading encrypted text: " + cipher_text)
         
     if auto_key == "":
+        print("Key space: letters A-Z only, any length (spaces are ignored).")
         keyword = get_valid_input("Enter keyword: ")
     else:
         keyword = auto_key
         print("Auto loading keyword: " + keyword)
+
+    # A valid Sawtooth ciphertext is a left path of n letters plus a right path of n - 1 letters,
+    # where n is always even (the shoe has two columns). So the length is always 3, 7, 11, 15, ...
+    if len(cipher_text) % 4 != 3:
+        print("\nError: A Sawtooth ciphertext length must be 3, 7, 11, 15... (one less than a multiple of 4).")
+        print("You entered " + str(len(cipher_text)) + " letters. Check that you copied the whole message.")
+        return
         
     print("\nStep 1: Calculate shoe size and split paths")
     print("Explanation: We find the original length by dividing the cipher text and splitting it into the Left and Right laces.")
@@ -221,7 +245,7 @@ def main_menu():
         print("3. Go back to Lace Menu")
         print("4. Exit")
         
-        choice = input("\nChoose an option: ")
+        choice = input("\nChoose an option: ").strip()
         
         if choice == '1':
             encode_msg()
@@ -232,7 +256,7 @@ def main_menu():
         elif choice == '4':
             sys.exit()
         else:
-            print("Invalid choice. Try again.")
+            print("Invalid choice. Please enter a number from 1 to 4.")
 
 if __name__ == '__main__':
     main_menu()

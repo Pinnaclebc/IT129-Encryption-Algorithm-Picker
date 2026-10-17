@@ -3,3 +3,5 @@ changelog.txt
 .env.*
 __pycache__/
 *.py[cod]
+.vs/
+__pycache__/
