@@ -1,6 +1,8 @@
 import os 
 import sys
 import webbrowser
+import ladder
+import sawtooth
 
 # Developed by: Bruce M. Canga
 
@@ -34,18 +36,14 @@ def main_menu():
         choice = input("\nChoose an option A B C or D: ").upper().strip()
         
         if choice == 'A':
-            exit_code = os.system("python sawtooth.py")
-            if exit_code != 0:
-                sys.exit(1)
+            sawtooth.main_menu()
         elif choice == 'B':
-            exit_code = os.system("python ladder.py")
-            if exit_code != 0:
-                sys.exit(1)
+            ladder.main_menu()
         elif choice == 'C':
-            os.system("main.py")
+            break
         elif choice == 'D':
             print("\nExiting program.")
-            sys.exit(1)
+            sys.exit()
         else:
             print("\nInvalid choice bro. Please enter exactly A B C or D.")
 

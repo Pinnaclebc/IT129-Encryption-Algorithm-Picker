@@ -228,9 +228,9 @@ def main_menu():
         elif choice == '2':
             decode_msg()
         elif choice == '3':
-            os.system("python lace_algos.py")
+            break
         elif choice == '4':
-            sys.exit(1)
+            sys.exit()
         else:
             print("Invalid choice. Try again.")
 

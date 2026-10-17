@@ -44,9 +44,7 @@ def run_menu() -> None:
             CeasarCipher_Algorithm.CeasarEncrypt()
 
         elif choice == "4":
-            exit_code = os.system("python LaceCipher_Algorithms.py")
-            if exit_code != 0:
-                sys.exit()
+            LaceCipher_Algorithms.main_menu()
 
         elif choice == "5":
             print("\nExiting Encryption Algorithm Picker. Goodbye!")
