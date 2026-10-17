@@ -2,7 +2,18 @@
 
 import string
 
-KEY = "qwertyuiopasdfghjklzxcvbnm"
+
+def getKey() -> str:
+    """Ask the user for a valid 26-letter key."""
+    while True:
+        key = input("Enter 26-letter key (each letter once): ").strip().lower()
+
+        if len(key) != 26 or set(key) != set(string.ascii_lowercase):
+            print("Invalid key. It must contain all 26 letters exactly once.\n")
+            continue
+
+        return key
+
 
 def monoalphabeticCipher(text, key, mode):
     result = ""
@@ -28,19 +39,18 @@ def monoalphabeticCipher(text, key, mode):
     for i, char in enumerate(text):
         if char.isalpha() and char.lower() in string.ascii_lowercase:
 
-            # Get the letter's position (A = 1 to Z = 26)
-            position = ord(char.lower()) - ord('a') + 1
+            if mode == "Decrypt":
+                # Position of the cipher letter inside the key
+                position = key.index(char.lower()) + 1
+                keyChar = char
+            else:
+                # Position of the plain letter in the alphabet (A = 1 to Z = 26)
+                position = ord(char.lower()) - ord('a') + 1
+                keyChar = key[position - 1]
+                if char.isupper():
+                    keyChar = keyChar.upper()
 
-            # Get the corresponding substituted character
             outputChar = char.translate(table)
-
-            # Get the corresponding character in the substitution key
-            keyChar = key[position - 1]
-
-            # Preserve the original letter's case
-            if char.isupper():
-                outputChar = outputChar.upper()
-                keyChar = keyChar.upper()
 
             print(
                 f"{i + 1:<4} {repr(char):<8} {position:<12} "
@@ -60,10 +70,13 @@ def monoalphabeticCipher(text, key, mode):
     print("-" * 75)
     return result
 
+
 def MonoalphabeticEncrypt() -> None:
-    """Ask for a message, then show encryption and decryption steps."""
+    """Ask for a key and message, then show encryption and decryption steps."""
 
     print("\n=== Monoalphabetic Cipher Tool ===")
+
+    key = getKey()
 
     message = input("Enter message to encrypt: ")
 
@@ -72,7 +85,7 @@ def MonoalphabeticEncrypt() -> None:
         return
 
     # Encrypt the message
-    encryptedText = monoalphabeticCipher(message, KEY, "Encrypt")
+    encryptedText = monoalphabeticCipher(message, key, "Encrypt")
     print(f"\nEncrypted string: {encryptedText}")
 
     # Ask whether to decrypt or exit
@@ -82,11 +95,7 @@ def MonoalphabeticEncrypt() -> None:
         ).strip().lower()
 
         if choice in ("d", "decrypt"):
-
-            # Decrypt the encrypted message
-            decryptedText = monoalphabeticCipher(
-                encryptedText, KEY, "Decrypt"
-            )
+            decryptedText = monoalphabeticCipher(encryptedText, key, "Decrypt")
             print(f"\nRecovered Plaintext: {decryptedText}")
             break
 
@@ -96,6 +105,7 @@ def MonoalphabeticEncrypt() -> None:
 
         else:
             print("Invalid choice. Please type D or E.")
+
 
 if __name__ == "__main__":
     MonoalphabeticEncrypt()
