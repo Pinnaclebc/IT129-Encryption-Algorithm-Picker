@@ -1,6 +1,4 @@
-import os
 import sys
-import webbrowser
 # Developed by Bruce M. Canga
 
 def pause_step():
@@ -26,16 +24,6 @@ def ask_yes_no(prompt_text):
         else:
             print("Invalid input. Please type y for yes or n for no.")
 
-def show_art():
-    file_name = "sawtooth.jpg"
-    if os.path.exists(file_name):
-        file_path = os.path.abspath(file_name)
-        link = "file:///" + file_path.replace("\\", "/")
-        print("Click this link to view the art:")
-        print(link)
-        webbrowser.open(link)
-    else:
-        print("The picture file is missing from the folder.")
 
 def get_letter_value(letter):
     try:
@@ -239,7 +227,6 @@ def main_menu():
         print("\n" + "=" * 46)
         print("           SAWTOOTH LACE ALGORITHM")
         print("=" * 46)
-        show_art()
         print("\n1. Encode Message")
         print("2. Decode Message")
         print("3. Go back to Lace Menu")

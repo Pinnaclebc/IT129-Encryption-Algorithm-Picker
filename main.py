@@ -2,7 +2,6 @@
 
 import MonoalphabeticCipher_Algorithm
 import BitwiseXORCipher_Algorithm
-import LaceCipher_Algorithms
 import os
 import sys
 import CeasarCipher_Algorithm
@@ -12,7 +11,7 @@ MENU_OPTIONS = {
     "1": "Monoalphabetic Cipher Algorithm",
     "2": "Bitwise XOR Cipher Algorithm",
     "3": "Ceasar Cipher Algorithm",
-    "4": "Lace Cipher Algorithms",
+    "4": "Lace Cipher Algorithm",
     "5": "Exit",
 }
 
@@ -45,7 +44,7 @@ def run_menu() -> None:
             CeasarCipher_Algorithm.CeasarEncrypt()
 
         elif choice == "4":
-            LaceCipher_Algorithms.main_menu()
+            Lace_combined.main_menu()
         elif choice == "5":
             print("\nExiting Encryption Algorithm Picker. Goodbye!")
             break

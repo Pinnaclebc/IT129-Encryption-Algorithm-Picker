@@ -1,8 +1,7 @@
-import os
 import sys
-import webbrowser
 
 # Developed by Bruce M. Canga
+# Ladder Lace
 
 def pause_step():
     # Keeps asking until the user types exactly y or n
@@ -27,17 +26,6 @@ def ask_yes_no(prompt_text):
         else:
             print("Invalid input. Please type y for yes or n for no.")
 
-def show_art():
-
-    file_name = "ladder.jpg"
-    if os.path.exists(file_name):
-        file_path = os.path.abspath(file_name)
-        link = "file:///" + file_path.replace("\\", "/")
-        print("\nClick this link to view the art:")
-        print(link)
-        webbrowser.open(link)
-    else:
-        print("The picture file is missing from the folder.")
 
 def get_letter_value(letter):
     try:
@@ -55,13 +43,21 @@ def get_valid_input(prompt_text):
         user_input = input(prompt_text).upper().replace(" ", "")
         if len(user_input) == 0:
             print("You cannot enter a blank answer. Please try again.")
-        elif user_input.isalpha() == False:
-            print("Please enter letters only. No numbers or special characters allowed.")
+        elif user_input.isascii() == False or user_input.isalpha() == False:
+            print("Please enter letters A-Z only. No numbers, accented letters, or special characters allowed.")
         else:
             return user_input
 
+def row_goes_left_to_right(keyword, row_number):
+    # Keyed weave: the keyword decides the direction of each row.
+    # Rows are numbered from 1. The key letter repeats like in the keyword shift.
+    # If (key letter value + row number) is even the lace goes Left to Right,
+    # if it is odd the lace goes Right to Left.
+    key_char = keyword[(row_number - 1) % len(keyword)]
+    return (get_letter_value(key_char) + row_number) % 2 == 0
+
 def encode_msg():
-    plain_text = get_valid_input("Enter plain text: ")
+    plain_text = get_valid_input("Enter plain text (letters only, spaces are removed): ")
     print("Key space: letters A-Z only, any length (spaces are ignored).")
     keyword = get_valid_input("Enter keyword: ")
     
@@ -109,13 +105,19 @@ def encode_msg():
         return
     
     print("\nStep 3: Blue Lace Path Weave")
-    print("Explanation: The blue lace alternates directions every row going Left to Right then Right to Left.")
+    print("Explanation: The keyword decides the direction of every row. If the key letter value plus the row number is even, the blue lace goes Left to Right. If it is odd, it goes Right to Left.")
     blue_path = ""
     for i in range(half_length):
-        if i % 2 == 0:
+        row_number = i + 1
+        key_char = keyword[i % len(keyword)]
+        val_k = get_letter_value(key_char)
+        if row_goes_left_to_right(keyword, row_number):
+            direction = "Left to Right"
             blue_path = blue_path + left_col[i] + right_col[i]
         else:
+            direction = "Right to Left"
             blue_path = blue_path + right_col[i] + left_col[i]
+        print("Row " + str(row_number) + ": " + key_char + " (" + str(val_k) + ") plus row " + str(row_number) + " equals " + str(val_k + row_number) + ", so " + direction)
             
     path_visual = ""
     for i in range(0, len(blue_path), 2):
@@ -128,7 +130,7 @@ def encode_msg():
     print("Explanation: The red lace perfectly mirrors the blue lace to lock the weave securely.")
     red_path = ""
     for i in range(half_length):
-        if i % 2 == 0:
+        if row_goes_left_to_right(keyword, i + 1):
             red_path = red_path + right_col[i] + left_col[i]
         else:
             red_path = red_path + left_col[i] + right_col[i]
@@ -196,24 +198,33 @@ def decode_msg(auto_cipher="", auto_key=""):
     if is_corrupted == False:
         print("Ladder locks verified. No data corruption.")
     else:
-        print("Warning: Data might be corrupted. Locks do not match.")
+        # The locks do not match, so this ciphertext was not made by the encoder
+        print("Error: The locks do not match. This is not a valid Ladder ciphertext, or it was changed.")
+        print("Decoding stopped. Check the ciphertext and try again.")
+        return
     if pause_step() == False:
         return
     
     print("\nStep 3: Untangle the Weave and Rebuild Shoe Layout")
-    print("Explanation: We take the Blue path and place the letters back into the left and right columns alternating directions.")
+    print("Explanation: We take the Blue path and use the keyword to find the direction of each row, then place the letters back into the left and right columns.")
     
     left_col = ""
     right_col = ""
     pair_index = 0
     for i in range(0, len(blue_path), 2):
         pair = blue_path[i:i+2]
-        if pair_index % 2 == 0:
+        row_number = pair_index + 1
+        key_char = keyword[pair_index % len(keyword)]
+        val_k = get_letter_value(key_char)
+        if row_goes_left_to_right(keyword, row_number):
+            direction = "Left to Right"
             left_col = left_col + pair[0]
             right_col = right_col + pair[1]
         else:
+            direction = "Right to Left"
             left_col = left_col + pair[1]
             right_col = right_col + pair[0]
+        print("Row " + str(row_number) + ": " + key_char + " (" + str(val_k) + ") plus row " + str(row_number) + " equals " + str(val_k + row_number) + ", so " + direction)
         pair_index = pair_index + 1
         
     print("\nRebuilt Shoe Layout:")
@@ -255,7 +266,6 @@ def main_menu():
         print("\n" + "=" * 46)
         print("            LADDER LACE ALGORITHM")
         print("=" * 46)
-        show_art()
         print("\n1. Encode Message")
         print("2. Decode Message")
         print("3. Go back to Lace Menu")
