@@ -53,13 +53,13 @@ def get_valid_input(prompt_text):
         user_input = input(prompt_text).upper().replace(" ", "")
         if len(user_input) == 0:
             print("You cannot enter a blank answer. Please try again.")
-        elif user_input.isalpha() == False:
-            print("Please enter letters only. No numbers or special characters allowed.")
+        elif user_input.isascii() == False or user_input.isalpha() == False:
+            print("Please enter letters A-Z only. No numbers, accented letters, or special characters allowed.")
         else:
             return user_input
 
 def encode_msg():
-    plain_text = get_valid_input("Enter plain text: ")
+    plain_text = get_valid_input("Enter plain text (letters only, spaces are removed): ")
     print("Key space: letters A-Z only, any length (spaces are ignored).")
     keyword = get_valid_input("Enter keyword: ")
     
