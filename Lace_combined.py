@@ -1,13 +1,8 @@
-import os
 import sys
-import webbrowser
 
 # Developed by Bruce M. Canga
 # Ladder-Sawtooth Lace: ONE cipher that passes the message through the Ladder lace
 # first and then through the Sawtooth lace. Decode undoes Sawtooth first, then Ladder.
-
-# The picture that opens in the menu. The first file found in the folder is used.
-ART_FILES = ["algo_pic.jpg", "ladder.jpg", "sawtooth.jpg"]
 
 def pause_step():
     # Keeps asking until the user types exactly y or n
@@ -32,16 +27,6 @@ def ask_yes_no(prompt_text):
         else:
             print("Invalid input. Please type y for yes or n for no.")
 
-def show_art():
-    for file_name in ART_FILES:
-        if os.path.exists(file_name):
-            file_path = os.path.abspath(file_name)
-            link = "file:///" + file_path.replace("\\", "/")
-            print("\nClick this link to view the art:")
-            print(link)
-            webbrowser.open(link)
-            return
-    print("The picture file is missing from the folder.")
 
 def get_letter_value(letter):
     try:
@@ -377,14 +362,13 @@ def decode_msg(auto_cipher="", auto_key=""):
         return
 
 def main_menu():
-    show_art()
     while True:
         print("\n" + "=" * 46)
         print("       LADDER + SAWTOOTH LACE ALGORITHM")
         print("=" * 46)
         print("\n1. Encode Message")
         print("2. Decode Message")
-        print("3. Go back to Lace Menu")
+        print("3. Go back to the Main Menu")
         print("4. Exit")
 
         choice = input("\nChoose an option: ").strip()
